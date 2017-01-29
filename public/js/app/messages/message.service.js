@@ -4,7 +4,7 @@ import { Headers, Http } from '@angular/http';
 import 'rxjs/Rx';
 import { Observable } from 'rxjs/Rx';
 import { Message } from "./message.model";
-var URL_MESSAGES_SERVICE = 'http://localhost:3000/message';
+var URL_MESSAGES = 'https://angular2-.herokuapp.com/message';
 export var MessageService = (function () {
     function MessageService(http, errorService) {
         this.http = http;
@@ -19,7 +19,7 @@ export var MessageService = (function () {
         var token = localStorage.getItem('token')
             ? '?token=' + localStorage.getItem('token')
             : '';
-        return this.http.post(URL_MESSAGES_SERVICE + token, body, { headers: headers })
+        return this.http.post(URL_MESSAGES + token, body, { headers: headers })
             .map(function (response) {
             var result = response.json();
             var message = new Message(result.obj.content, result.obj.user.firstName, result.obj._id, result.obj.user._id);
@@ -33,7 +33,7 @@ export var MessageService = (function () {
     };
     MessageService.prototype.getMessages = function () {
         var _this = this;
-        return this.http.get(URL_MESSAGES_SERVICE)
+        return this.http.get(URL_MESSAGES)
             .map(function (response) {
             var messages = response.json().obj;
             var transformedMessages = [];
@@ -56,7 +56,7 @@ export var MessageService = (function () {
         var token = localStorage.getItem('token')
             ? '?token=' + localStorage.getItem('token')
             : '';
-        return this.http.patch('http://localhost:3000/message/' + message.messageId + token, body, { headers: headers })
+        return this.http.patch(URL_MESSAGES + message.messageId + token, body, { headers: headers })
             .map(function (response) { return response.json(); })
             .catch(function (error) {
             _this.errorService.handledError(error.json());
@@ -72,7 +72,7 @@ export var MessageService = (function () {
         var token = localStorage.getItem('token')
             ? '?token=' + localStorage.getItem('token')
             : '';
-        return this.http.delete('http://localhost:3000/message/' + message.messageId + token)
+        return this.http.delete(URL_MESSAGES + message.messageId + token)
             .map(function (response) { return response.json(); })
             .catch(function (error) {
             _this.errorService.handledError(error.json());

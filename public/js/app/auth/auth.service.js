@@ -3,6 +3,7 @@ import { Headers, Http } from '@angular/http';
 import { Injectable } from '@angular/core';
 import 'rxjs/Rx';
 import { Observable } from 'rxjs/Rx';
+var URL_USER = 'https://angular2-.herokuapp.com/user';
 export var AuthService = (function () {
     function AuthService(http, errorService) {
         this.http = http;
@@ -12,7 +13,7 @@ export var AuthService = (function () {
         var _this = this;
         var body = JSON.stringify(user);
         var headers = new Headers({ 'Content-Type': 'application/json' });
-        return this.http.post('http://localhost:3000/user', body, { headers: headers })
+        return this.http.post(URL_USER, body, { headers: headers })
             .map(function (response) { return response.json(); })
             .catch(function (error) {
             _this.errorService.handledError(error.json());
@@ -23,7 +24,7 @@ export var AuthService = (function () {
         var _this = this;
         var body = JSON.stringify(user);
         var headers = new Headers({ 'Content-Type': 'application/json' });
-        return this.http.post('http://localhost:3000/user/signin', body, { headers: headers })
+        return this.http.post(URL_USER + '/signin', body, { headers: headers })
             .map(function (response) { return response.json(); })
             .catch(function (error) {
             _this.errorService.handledError(error.json());
