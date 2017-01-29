@@ -10,7 +10,7 @@ const URL_USER =  'https://angular2-.herokuapp.com/user';
  @Injectable()
 export class AuthService {
     constructor(private http: Http, private errorService: ErrorService){
-        
+       
     }
 
     signup(user: User){
